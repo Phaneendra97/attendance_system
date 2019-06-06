@@ -33,31 +33,27 @@
      <input type="password" class="form-control" name="password">
     </div>
 
-   
-   <a href="#" id="start-camera" class="invisible">Touch here to start the app.</a>
-    <video width="320" height="240" id="camera-stream"></video>
-    
+   <div class="app">
+
+    <a href="#" id="start-camera" class="visible">Touch here to start the app.</a>
+    <video width="480" height="320" id="camera-stream"></video>
+    <img width="0" height="0" id="snap">
 
     <p id="error-message"></p>
-  <!--<% var today = new Date();
-var name = name;
- var date = today.getDate();
- if (typeof document !== 'undefined') {
- 
 
- document.getElementById("download-photo").setAttribute("download", date);}
- //var location = "D:\Steam\\"+name+"\\"+date+".png";
-   %>  -->
-   <div class="controls">
- <!--     <a href="#" id="delete-photo" title="Delete Photo" class="disabled"><i class="material-icons">delete</i></a> -->
-      <a href="#" id="take-photo" title="Take Photo"><i class="material-icons">Camera</i></a>
-      <br/>
-      <a href="#" id="download-photo" download=today >Download</a>  
-      
+    <div class="controls">
+      <a href="#" id="delete-photo" title="Delete Photo" class="disabled"><i class="material-icons">delete</i></a>
+      <a href="#" id="take-photo" title="Take Photo" onclick="snap.style.visibility='hidden';"><i class="material-icons">camera_alt</i></a>
+      <a href="#" id="download-photo" download="selfie.png"  title="Save Photo" class="disabled"><i class="material-icons">file_download</i></a>  
     </div>
-<button type="submit"  class="btn btn-succcess btn-lg">Check-in</button>  
+
     <!-- Hidden canvas element. Used for taking snapshot of video. -->
-    <canvas><img id="snap"></canvas>
+    <canvas></canvas>
+
+  </div>
+<button type="submit"  class="btn btn-succcess btn-lg">Check-in</button>  
+    
+    
     
    </form>
      

@@ -65,7 +65,7 @@
         <% let c = data[i].checkin;
            let o = data[i].checkout;  
            let chrs = c.substring(0, 2);
-           let ohrs = o.substring(0,2);
+           if(data[i].checkout!=null){let ohrs = o.substring(0,2);
            let cmin = c.substring(3,5);
            let omin = o.substring(3,5);
            let h;
@@ -80,8 +80,10 @@
             min = cmin-omin;  
             let hrs; 
             hrs = h + ":" + min ;
-            %>
-           <td><%=hrs%></td>
+    
+               %>
+            <td><%=hrs%></td>
+            <% } %>
       </tr>
      <% }
      %>

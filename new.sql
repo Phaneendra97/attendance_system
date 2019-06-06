@@ -10,6 +10,8 @@ CREATE TABLE `attendance`.`emp` (
   `date` DATE NOT NULL,
   `checkin` TIME NOT NULL,
   `checkout` TIME NULL,
+  `luncho` TIME NULL,
+  `lunchr` TIME NULL,
   `present` INT NULL,
   `hours` FLOAT NULL);
 
