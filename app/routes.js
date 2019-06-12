@@ -46,12 +46,12 @@ module.exports = function(app, passport) {
     failureFlash: true
    }));
   
- app.get('/cin', function(req, res){
-  res.render('cin.ejs', {message: req.flash('cin-message')});
- });
-
  app.get('/cinT', function(req, res){
   res.render('cinT.ejs', {message: req.flash('cin-message')});
+ });
+
+ app.get('/cin', function(req, res){
+  res.render('cin.ejs', {message: req.flash('cin-message')});
  });
 
  app.post('/cin', passport.authenticate('local-cin', {
@@ -59,13 +59,24 @@ module.exports = function(app, passport) {
   failureRedirect: '/cin',
   failureFlash: true
  }));
- app.get('/cout', function(req, res){
-  res.render('cout.ejs', {message: req.flash('cout-message')});
+
+ app.get('/luncho', function(req, res){
+  res.render('luncho.ejs', {message: req.flash('cin-message')});
  });
 
- app.post('/cout', passport.authenticate('local-cout', {
-  successRedirect: '/cout',
-  failureRedirect: '/cout',
+ app.post('/luncho', passport.authenticate('local-luncho', {
+  successRedirect: '/luncho',
+  failureRedirect: '/luncho',
+  failureFlash: true
+ }));
+
+ app.get('/lunchr', function(req, res){
+  res.render('lunchr.ejs', {message: req.flash('cout-message')});
+ });
+
+ app.post('/lunchr', passport.authenticate('local-lunchr', {
+  successRedirect: '/lunchr',
+  failureRedirect: '/lunchr',
   failureFlash: true
  }));
 
@@ -91,6 +102,7 @@ module.exports = function(app, passport) {
     res.render('pass.ejs', {
       });
    });
+
  app.get('/tab',  function(req, res){
     console.log("enroute tab");
     if(req.isAuthenticated()){
@@ -102,6 +114,27 @@ module.exports = function(app, passport) {
     throw (err);
     console.log("success");
     res.render('tab.ejs',{page_title:"Test Table",data:rows,cryptr:cryptr});
+    });
+   // connection.end();
+   // res.render('tab.ejs', {
+    // user:req.user
+    // });
+  }
+  else
+  res.redirect('/');
+  });
+
+  app.get('/lunchtab',  function(req, res){
+    console.log("enroute lunch tab");
+    if(req.isAuthenticated()){
+    var queryString = 'SELECT name, date, luncho, lunchr, hours FROM lunch';
+    //let connection = mysql.createConnection(dbaccconfig.connection);
+    connection.query(queryString, 
+    function(err, rows){
+    if(err)    
+    throw (err);
+    console.log("success");
+    res.render('lunchtab.ejs',{page_title:"Test Table",data:rows,cryptr:cryptr});
     });
    // connection.end();
    // res.render('tab.ejs', {

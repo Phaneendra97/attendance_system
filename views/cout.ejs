@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <meta http-equiv="X-UA-Compatible" content="ie=edge">
- <title>Checkout</title>
+ <title>Sign up</title>
  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
  <link rel="stylesheet" 
  href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
@@ -15,7 +19,7 @@
  </style>
 </head>
 <body>
- <div class="container">
+ <div  class="container">
   <div class="col-sm-6 col-sm-offset-3">
    <h2>Check-out</h2>
 
@@ -26,36 +30,78 @@
    <form action="/cout" method="post">
     <div class="form-group">
      <label>Username</label>
-     <input type="text" class="form-control" name="username">
+     <input type="text" id="username" class="form-control" name="username">
     </div>
-    
     <div class="form-group">
      <label>Password</label>
      <input type="password" class="form-control" name="password">
     </div>
-  
-   <a href="#" id="start-camera" class="invisible">Touch here to start the app.</a>
-    <video width="320" height="240" id="camera-stream"></video>
-    
 
+   <div class="app">
+
+    <a href="#" id="start-camera" class="visible" style = "visibility: hidden">Touch here to start the app.</a>
+    <video width="480" height="320" id="camera-stream"></video>
+    
+    <img width="0" height="0" id="snap">
+    <div id="can">
+    <canvas id="canvas">
+    </canvas> 
+    </div>
     <p id="error-message"></p>
 
     <div class="controls">
-    <!--     <a href="#" id="delete-photo" title="Delete Photo" class="disabled"><i class="material-icons">delete</i></a> -->
-      <a href="#" id="take-photo" title="Take Photo"><i class="material-icons">Camera</i></a>
-      <br/>
-      <a href="#" id="download-photo" download="selfie.png" title="Save Photo" class="disabled"><i class="material-icons">Download</i></a>  
-    </div>
-    <button type="submit" class="btn btn-succcess btn-lg">Check-out</button>
-       <canvas><img id="snap"></canvas>
-   </form>
+      <a href="#" id="take-photo" title="Take Photo" onclick="snap.style.visibility='hidden';"><i class="material-icons">camera</i></a>
+      </br>
+      <a href = "#" id = "saveas" onclick="saveAs()">Save</a> 
+      <a href="#" id="delete-photo" title="Delete Photo" style = "visibility: hidden" class="disabled"><i class="material-icons">delete</i></a>
+      <a href="#" id="download-photo" download="selfie.png" style = "visibility: hidden" title="Save Photo" class="disabled"><i class="material-icons">file_download</i></a> 
+      
+           </div>
+     
 
-
-
+    <!-- Hidden canvas element. Used for taking snapshot of video. -->
+    
 
   </div>
+<button type="submit"  class="btn btn-succcess btn-lg">Check-out</button>  
+    
+    
+    
+   </form>
+     
+  
+  </div>
+ 
+
+<p>Go Back <a href="/">Home</a>.</p>
  </div>
- <script> 
+ 
+ <script>
+function saveAs() {
+    console.log("here at saveas");
+   var canvas = document.getElementById('canvas');
+var dataURL = canvas.toDataURL();
+console.log(dataURL);
+     var date = new Date();
+     var d = date.toISOString().slice(0, 19).replace(/-/g, "");
+     var hrs = date.getHours();
+     var min = date.getMinutes();
+     console.log(d);
+     day = d.slice(6,8);
+     month = d.slice(4,6);
+     year = d.slice(0,4);
+     console.log(day,month,year,hrs,min);
+    var link = document.createElement('a');
+link.href = dataURL;
+link.download = hrs+"'"+min+"-"+day+"-"+month+"-"+year+".jpg";
+document.body.appendChild(link);
+link.click();
+document.body.removeChild(link);
+}
+
+
+
+
  document.addEventListener('DOMContentLoaded', function () {
 
     // References to all the element we will need.
@@ -67,7 +113,8 @@
         delete_photo_btn = document.querySelector('#delete-photo'),
         download_photo_btn = document.querySelector('#download-photo'),
         error_message = document.querySelector('#error-message');
-
+        
+       
 
     // The getUserMedia interface is used for handling camera input.
     // Some browsers need a prefix so here we're covering all the options

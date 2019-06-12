@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Attendance</title>
+  <title>Lunch logs</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -42,16 +42,15 @@
 <body>
 
 <div class="container">
-  <h2>Password Vault</h2>
+  <h2>Lunch logs</h2>
        <table class="table table-hover" id = "tblData">
     <thead>
       <tr>
         <th>Name</th>
         <th>Date</th>
-        <th>Checkin</th>
-        <th>Checkout</th>
-        <th>Present</th>
-        <th>Hours</th>
+        <th>lunch checkin</th>
+        <th>lunch return</th>
+        <th>Minutes</th>
       </tr>
     </thead>
     <tbody>
@@ -59,22 +58,23 @@
       <tr>
         <td><%=data[i].name%></td>
         <td><%=data[i].date%></td>
-        <td><%=data[i].checkin%></td>
-        <td><%=data[i].checkout%></td>
-        <td><%=data[i].present%></td>
-        <% let c = data[i].checkin;
-           let o = data[i].checkout;  
+        <td><%=data[i].luncho%></td>
+        <td><%=data[i].lunchr%></td>
+        <% 
+         let c = data[i].luncho;
+           let o = data[i].lunchr;  
            let chrs = c.substring(0, 2);
-           if(data[i].checkout!=null){
+           if(data[i].luncho!=null){
            let ohrs = o.substring(0,2);
            let cmin = c.substring(3,5);
            let omin = o.substring(3,5);
            chrs = parseInt((chrs * 60))+ parseInt(cmin);
            ohrs = parseInt((ohrs *60))+ parseInt(omin) ;
+           console.log(chrs,ohrs);
            total = ohrs - chrs;
-           hours = parseFloat(total/60);
+
                %>
-            <td><%=hours%></td>
+            <td><%=total%></td>
             <% } %>
       </tr>
      <% }
@@ -82,10 +82,9 @@
     </tbody>
   </table>
    <div class="card-footer">
-   <a href="/lunchtab" class="btn btn-primary" style= "margin:0px 20px 0 20px; background-color : #00c8fe;" class="btn btn-danger btn-sm" >Lunch logs</a>
-             
+       <a href="/logout" class="btn btn-danger btn-sm">Logout</a>
+           
            <button class="btn btn-primary" style= "margin:0px 20px 0 20px; background-color : #00c853;" onclick="exportTableToExcel('tblData')">Export Table Data To Excel File</button>
-           <a href="/logout" class="btn btn-danger btn-sm">Logout</a>
             </div> 
   </diV>   
     <br/>    
@@ -96,8 +95,8 @@ function myFunction() {
 
 for(var j=0; j<(undefined !== data && data.length);i++ )
 {
-  let cin = data[i].checkin;
-  let cout = data[i].checkout;
+  let cin = data[i].luncho;
+  let cout = data[i].lunchr;
 document.getElementById("hrs").innerHTML = myFunction();
 }
 }
