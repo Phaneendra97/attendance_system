@@ -23,4 +23,11 @@ CREATE TABLE `attendance`.`account` (
   `username` VARCHAR(100) NOT NULL,
   `password` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`username`));
+  
 
+  CREATE TABLE `attendance`.`lunch` (
+  `name` VARCHAR(100) NOT NULL,
+  `date` DATE NOT NULL,
+  `luncho` TIME NULL,
+  `lunchr` TIME NULL,
+  `hours` FLOAT NULL);
