@@ -69,6 +69,15 @@ module.exports = function(app, passport) {
   failureRedirect: '/luncho',
   failureFlash: true
  }));
+ app.get('/cout', function(req, res){
+  res.render('cout.ejs', {message: req.flash('cout-message')});
+ });
+
+ app.post('/cout', passport.authenticate('local-lunchr', {
+  successRedirect: '/cout',
+  failureRedirect: '/cout',
+  failureFlash: true
+ }));
 
  app.get('/lunchr', function(req, res){
   res.render('lunchr.ejs', {message: req.flash('cout-message')});
