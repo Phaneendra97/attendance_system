@@ -60,6 +60,16 @@ module.exports = function(app, passport) {
   failureFlash: true
  }));
 
+app.get('/cout', function(req, res){
+  res.render('cout.ejs', {message: req.flash('cout-message')});
+ });
+
+ app.post('/cout', passport.authenticate('local-cout', {
+  successRedirect: '/cout',
+  failureRedirect: '/cout',
+  failureFlash: true
+ }));
+
  app.get('/luncho', function(req, res){
   res.render('luncho.ejs', {message: req.flash('cin-message')});
  });
@@ -67,15 +77,6 @@ module.exports = function(app, passport) {
  app.post('/luncho', passport.authenticate('local-luncho', {
   successRedirect: '/luncho',
   failureRedirect: '/luncho',
-  failureFlash: true
- }));
- app.get('/cout', function(req, res){
-  res.render('cout.ejs', {message: req.flash('cout-message')});
- });
-
- app.post('/cout', passport.authenticate('local-lunchr', {
-  successRedirect: '/cout',
-  failureRedirect: '/cout',
   failureFlash: true
  }));
 

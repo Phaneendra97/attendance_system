@@ -58,7 +58,11 @@
     <% for(var i = 0;i < (undefined !== data && data.length);i++) { %>
       <tr>
         <td><%=data[i].name%></td>
-        <td><%=data[i].date%></td>
+        <% dateO = data[i].date;
+           dateS = dateO.toString();
+           dates = dateS.substring(0,15); 
+	 %>
+        <td><%=dates%></td>
         <td><%=data[i].checkin%></td>
         <td><%=data[i].checkout%></td>
         <td><%=data[i].present%></td>
@@ -73,6 +77,13 @@
            ohrs = parseInt((ohrs *60))+ parseInt(omin) ;
            total = ohrs - chrs;
            hours = parseFloat(total/60);
+           hours = hours.toFixed(2);
+           let hourString =hours.toString();
+let hrs = hourString.split(".");
+	   let minString = hrs[1];
+           let min = (parseInt(minString)*0.60).toFixed(0).toString();
+           
+           hours = hrs[0] +"."+ min; 
                %>
             <td><%=hours%></td>
             <% } %>

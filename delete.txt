@@ -1,0 +1,2 @@
+DELETE FROM emp 
+WHERE date >= '2019-07-27' and date <= '2019-08-31'
