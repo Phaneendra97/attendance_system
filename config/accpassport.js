@@ -43,7 +43,23 @@ passport.use(
      date.format(day, 'YYYY/MM/DD');
      console.log(day);
      date.format(time,'HH:mm:ss'); 
-     let present = 1;
+     let present = 0;
+     console.log("@ac");
+     connection.query("SELECT present FROM emp WHERE name = ? AND date = ?  ", 
+     [username, date.format(day, 'YYYY/MM/DD')], function(err, rows){
+       console.log(username+ date.format(day, 'YYYY/MM/DD'));
+       console.log(rows);
+      if(err)
+       throw (err);
+       console.log(rows.length);
+      if(rows.length){
+        console.log(rows.length);
+           present = 1;
+       return done(null, false, req.flash('cin-message', 'You already checked in'));
+      }
+      if(present == 0){
+        console.log("@insert");
+        present = 1;
      var insertQuery = "INSERT INTO emp (name, date, checkin, present) values (?, ?, ?, ?)";
      connection.query(insertQuery, [newUserMysql.username, day, time, present ],
       function(err, rows){
@@ -52,7 +68,9 @@ passport.use(
        return done(null, false, req.flash('cin-message', 'Success'));
        // return done(err);    
      //  return done(null, newUserMysql);
-      });
+      });}
+    });
+
     });
   })
 );
